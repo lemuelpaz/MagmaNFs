@@ -1,11 +1,38 @@
-import { Fragment } from "react"
+import { useEffect, useState, Fragment } from "react"
 import logoNFC from "../../public/logo-nfc.png"
 import Image from "next/image"
 import { useRouter } from "next/router"
+import axios from "axios"
 
 export default function Invoice() {
+  const [formFields, setFormFields] = useState([])
+  const [cliente, setCliente] = useState([])
+  const [endereco, setEndereco] = useState([])
+  const [contato, setContato] = useState([])
   const router = useRouter()
   const { key_access } = router.query
+  
+
+
+  useEffect(() => {    
+    async function getAllinvoices() {     
+      try {        
+        const url = 'https://localhost:7012/api/v1/notas-fiscais/buscar-pelo-uid/f28d11af-771a-4aba-9250-b903bfc208c3'
+        const totalInvoices = await axios.get(url)
+        setFormFields(totalInvoices.data.data)
+        setCliente(totalInvoices.data.data.cliente.NomeCliente)
+        setEndereco(totalInvoices.data.data.cliente.endereco.bairro)
+        setContato(totalInvoices.data.data.cliente.contato.celularNumero)
+        console.log("cliente", cliente)
+        console.log("okokok",  formFields.cliente.nomeCliente)
+      } catch(err) {
+        console.log(err)
+      }
+    }
+    getAllinvoices()
+  }, [])
+
+
 
   function formatDateTime(dateTimeStr) {
     const dateObj = new Date(dateTimeStr);
@@ -15,8 +42,11 @@ export default function Invoice() {
     return `${day}/${month}/${year}`;
   }
 
-  const currentFormField = JSON.parse(localStorage.getItem("formFields")) || []
-  const invoice = currentFormField.find((data) => data.key_access === key_access)
+  // const currentFormField = JSON.parse(localStorage.getItem("formFields")) || []
+  // const invoice = currentFormField.find((data) => data.key_access === key_access)
+
+ 
+
 
   return (
     <Fragment>
@@ -33,14 +63,14 @@ export default function Invoice() {
         
         <div class="details">
           <div class="left">
-            <p><strong>Cliente:</strong>{invoice.client}</p>
-            <p><strong>Endereço:</strong>{invoice.district}</p>
-            <p><strong>Telefone:</strong>{invoice.phone}</p>
+            <p><strong>Cliente:</strong>{cliente}</p>
+            <p><strong>Endereço: </strong>{endereco}</p>
+            <p><strong>Telefone:</strong>{contato}</p>
           </div>
-          <div class="right">
-            <p><strong>Data da compra:</strong> {formatDateTime(invoice.buy_date)}</p>
-            <p><strong>Número da nota:</strong> {invoice.invoiceNumber}</p>
-          </div>
+          {/* <div class="right">
+            <p><strong>Data da compra:</strong> {formatDateTime(formFields.dataEnussai)}</p>
+            <p><strong>Número da nota:</strong> {formFields.numeroNota}</p>
+          </div> */}
         </div>
         <div class="items">
           <div class="item">
@@ -48,20 +78,21 @@ export default function Invoice() {
             <span class="price"><strong>Preço
             </strong></span>
           </div>
-          <div class="item">
+          {/* <div class="item">
             <span>{invoice.product}</span>
-            <span class="price">{Number(invoice.product_value).toLocaleString('ja-JP', { style: 'currency', currency: 'BRL' })}</span>
-          </div>
+            <span class="price">{Number(formFields.product_value).toLocaleString('ja-JP', { style: 'currency', currency: 'BRL' })}</span>
+          </div> */}
         </div>
-        <div class="total">
+        {/* <div class="total">
           <span>Total:</span>
           <span>{Number(invoice.product_value).toLocaleString('ja-JP', { style: 'currency', currency: 'BRL' })}</span>
-        </div>
+        </div> */}
         <div class="absolute bottom-4 text-gray-500">
           <p>Esta nota fiscal foi gerada automaticamente pelo sistema.</p>
           <p>Para mais informações, entre em contato conosco pelo telefone (81) 9154-4050 ou pelo e-mail Contato@technochem.com.br</p>
         </div>
 	    </div>
     </Fragment>
+    // <div></div>
   )
 }

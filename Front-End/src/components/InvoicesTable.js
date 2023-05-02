@@ -8,10 +8,13 @@ export function InvoicesTable({ setModalVisible }) {
 
   useEffect(() => {    
     async function getAllinvoices() {
+     
       try {
+        
         const url = 'https://localhost:7012/api/v1/notas-fiscais/buscar-todas'
         const totalInvoices = await axios.get(url)
-        setFormFields(totalInvoices.data)
+        setFormFields(totalInvoices.data.data)
+        console.log("teste",  totalInvoices.data.data)
       } catch(err) {
         console.log(err)
       }
