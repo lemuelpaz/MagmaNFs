@@ -9,6 +9,9 @@ export default function Invoice() {
   const [cliente, setCliente] = useState([])
   const [endereco, setEndereco] = useState([])
   const [contato, setContato] = useState([])
+  const [dataEmissao, setDataEmissao] = useState([])
+  const [notaN, setNotaN] = useState([])
+  const [produto, setProduto] = useState([])
   const router = useRouter()
   const { key_access } = router.query
   
@@ -23,7 +26,10 @@ export default function Invoice() {
         setCliente(totalInvoices.data.data.cliente.NomeCliente)
         setEndereco(totalInvoices.data.data.cliente.endereco.bairro)
         setContato(totalInvoices.data.data.cliente.contato.celularNumero)
-        console.log("cliente", cliente)
+        setDataEmissao(totalInvoices.data.data.dataEmissao)
+        setNotaN(totalInvoices.data.data.numeroNota)
+        setProduto(totalInvoices.data.data.produtosNotaFiscal.produtoDescricao)
+        console.log("cliente", totalInvoices.data.data)
         console.log("okokok",  formFields.cliente.nomeCliente)
       } catch(err) {
         console.log(err)
@@ -67,10 +73,10 @@ export default function Invoice() {
             <p><strong>Endereço: </strong>{endereco}</p>
             <p><strong>Telefone:</strong>{contato}</p>
           </div>
-          {/* <div class="right">
-            <p><strong>Data da compra:</strong> {formatDateTime(formFields.dataEnussai)}</p>
-            <p><strong>Número da nota:</strong> {formFields.numeroNota}</p>
-          </div> */}
+          <div class="right">
+            <p><strong>Data da compra:</strong> {dataEmissao}</p>
+            <p><strong>Número da nota:</strong> {notaN}</p>
+          </div>
         </div>
         <div class="items">
           <div class="item">
@@ -78,10 +84,10 @@ export default function Invoice() {
             <span class="price"><strong>Preço
             </strong></span>
           </div>
-          {/* <div class="item">
-            <span>{invoice.product}</span>
-            <span class="price">{Number(formFields.product_value).toLocaleString('ja-JP', { style: 'currency', currency: 'BRL' })}</span>
-          </div> */}
+          <div class="item">
+            <span>{produto}</span>
+            {/* <span class="price">{Number(produto).toLocaleString('ja-JP', { style: 'currency', currency: 'BRL' })}</span> */}
+          </div>
         </div>
         {/* <div class="total">
           <span>Total:</span>
