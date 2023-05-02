@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\tests\Magma3.NotaFiscal.Tests\Magma3.NotaFiscal.Tests.csproj" />
+    <ProjectReference Include="..\Magma3.NotaFiscal.Application\Magma3.NotaFiscal.Application.csproj" />
+    <ProjectReference Include="..\Magma3.NotaFiscal.Domain\Magma3.NotaFiscal.Domain.csproj" />
+    <ProjectReference Include="..\Magma3.NotaFiscal.Infra.Data\Magma3.NotaFiscal.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>

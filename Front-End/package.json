@@ -1,0 +1,28 @@
+{
+  "name": "magma3",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@react-pdf/fontkit": "^2.1.2",
+    "@react-pdf/image": "^2.2.1",
+    "@react-pdf/pdfkit": "^3.0.2",
+    "@react-pdf/renderer": "^3.1.9",
+    "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
+    "next": "13.3.1",
+    "pdfmake": "^0.3.0-beta.1",
+    "postcss": "8.4.23",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^4.8.0",
+    "tailwindcss": "3.3.2",
+    "uuid": "^9.0.0"
+  }
+}
